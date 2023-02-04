@@ -1,8 +1,13 @@
 import sys
 from io import BytesIO
-
 import requests
+from geocoder_request import geocode
 from PIL import Image
+from PyQt_applicaton import *
+
+address = 'Москва, ул. Ак. Королева, 12'
+
+response = geocode(address)
 
 if not response:
     # обработка ошибочной ситуации
@@ -24,7 +29,8 @@ delta = "0.005"
 map_params = {
     "ll": ",".join([toponym_longitude, toponym_lattitude]),
     "spn": ",".join([delta, delta]),
-    "l": "map"
+    "l": "map",
+    "size": '450,450'
 }
 
 map_api_server = "http://static-maps.yandex.ru/1.x/"
@@ -32,6 +38,11 @@ map_api_server = "http://static-maps.yandex.ru/1.x/"
 response = requests.get(map_api_server, params=map_params)
 
 Image.open(BytesIO(
-    response.content)).show()
+    response.content)).save('res.png')
+
+app = QApplication(sys.argv)
+ex = Example('res.png')
+ex.show()
+sys.exit(app.exec())
 # Создадим картинку
 # и тут же ее покажем встроенным просмотрщиком операционной системы
