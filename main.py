@@ -8,7 +8,7 @@ from PIL import Image
 # Пусть наше приложение предполагает запуск:
 # python search.py Москва, ул. Ак. Королева, 12
 # Тогда запрос к геокодеру формируется следующим образом:
-toponym_to_find = " ".join('Москва, ул. Ак. Королева, 12')
+toponym_to_find = 'Владивосток, ул.Харьковская, 8'
 
 geocoder_api_server = "http://geocode-maps.yandex.ru/1.x/"
 
@@ -18,7 +18,7 @@ geocoder_params = {
     "format": "json"}
 
 response = requests.get(geocoder_api_server, params=geocoder_params)
-
+print(response.json())
 if not response:
     # обработка ошибочной ситуации
     pass
