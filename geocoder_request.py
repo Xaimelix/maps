@@ -4,6 +4,7 @@ import requests
 class Map():
     def __init__(self):
         self.map_type = 'map'
+        self.delta = '0.002'
 
     def geocode(self, human_address):
         geocoder_api_server = "http://geocode-maps.yandex.ru/1.x/"
@@ -24,12 +25,14 @@ class Map():
         api_server = "http://static-maps.yandex.ru/1.x/"
         lon = str(toponym_coodrinates[0])
         lat = str(toponym_coodrinates[1])
-        delta = "0.002"
-
         params = {
             "ll": ",".join([lon, lat]),
-            "spn": ",".join([delta, delta]),
+            "spn": ",".join([self.delta, self.delta]),
             "l": self.map_type
         }
         response = requests.get(api_server, params=params)
         return response.content
+
+    def change_delta(self, change):
+        # print(str(int(self.delta) + change))
+        self.delta = str(float(self.delta) + change)

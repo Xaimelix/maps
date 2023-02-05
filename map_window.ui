@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>App</class>
- <widget class="QMainWindow" name="App">
+ <class>Example</class>
+ <widget class="QMainWindow" name="Example">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -14,7 +14,7 @@
    <string>Map</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QLabel" name="map">
+   <widget class="QLabel" name="map_img">
     <property name="geometry">
      <rect>
       <x>0</x>
