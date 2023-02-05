@@ -33,6 +33,10 @@ class Map():
         response = requests.get(api_server, params=params)
         return response.content
 
-    def change_delta(self, change):
+    def change_delta(self, k_delta):
         # print(str(int(self.delta) + change))
-        self.delta = str(float(self.delta) + change)
+        if 0.0005 < float(self.delta) * k_delta < 0.2:
+            self.delta = str(float(self.delta) * k_delta)
+            return True
+        else:
+            return False

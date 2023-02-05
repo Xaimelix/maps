@@ -27,13 +27,15 @@ class App(QMainWindow):
 
     def keyPressEvent(self, event):
         if event.key() == Qt.Key_PageUp or event.key() == Qt.Key_PageDown:
-            c_d = 0.01
-            if event.key() == Qt.Key_PageUp:
-                print(1)
-                self.map.change_delta(-c_d)
             if event.key() == Qt.Key_PageDown:
-                self.map.change_delta(c_d)
-            self.Image_show()
+                k_delta = 2
+                print(1)
+                correct = self.map.change_delta(k_delta)
+            if event.key() == Qt.Key_PageUp:
+                k_delta = 0.5
+                correct = self.map.change_delta(k_delta)
+            if correct:
+                self.Image_show()
 
 
 
