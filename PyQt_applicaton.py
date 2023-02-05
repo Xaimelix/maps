@@ -15,6 +15,9 @@ class App(QMainWindow):
         self.initUI()
         self.address = address
         self.map = Map()
+        self.btn_sputnik.clicked.connect(self.buttons_change_mode)
+        self.btn_schema.clicked.connect(self.buttons_change_mode)
+        self.btn_hybrid.clicked.connect(self.buttons_change_mode)
         self.Image_show()
 
     def initUI(self):
@@ -36,6 +39,19 @@ class App(QMainWindow):
                 correct = self.map.change_delta(k_delta)
             if correct:
                 self.Image_show()
+
+    def buttons_change_mode(self):
+        if self.sender() == self.btn_sputnik:
+            mode = 'sat'
+        elif self.sender() == self.btn_schema:
+            mode = 'map'
+        else:
+            mode = 'sat,skl'
+        correct = self.map.change_mode(mode)
+        if correct:
+            self.Image_show()
+
+
 
 
 

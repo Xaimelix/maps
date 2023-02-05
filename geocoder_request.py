@@ -38,12 +38,15 @@ class Map():
         return response.content
 
     def change_delta(self, k_delta):
-        if 0.0005 < float(self.delta) * k_delta < 10:
+        if 0.00015 < float(self.delta) * k_delta < 10:
             self.delta = str(float(self.delta) * k_delta)
             return True
         else:
             return False
 
-
-
-
+    def change_mode(self, mode):
+        if self.map_type != mode:
+            self.map_type = mode
+            return True
+        else:
+            return False

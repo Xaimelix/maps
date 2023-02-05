@@ -7,11 +7,14 @@
     <x>0</x>
     <y>0</y>
     <width>450</width>
-    <height>450</height>
+    <height>530</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Map</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(94, 94, 173);</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QLabel" name="map_img">
@@ -25,6 +28,60 @@
     </property>
     <property name="text">
      <string>TextLabel</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btn_schema">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>460</y>
+      <width>131</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(159, 255, 130);
+font: 16pt &quot;Gill Sans Ultra Bold&quot;;
+color: rgb(4, 33, 158);</string>
+    </property>
+    <property name="text">
+     <string>Схема</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btn_sputnik">
+    <property name="geometry">
+     <rect>
+      <x>160</x>
+      <y>460</y>
+      <width>130</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(159, 255, 130);
+font: 16pt &quot;Gill Sans Ultra Bold&quot;;
+color: rgb(4, 33, 158);</string>
+    </property>
+    <property name="text">
+     <string>Спутник</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btn_hybrid">
+    <property name="geometry">
+     <rect>
+      <x>310</x>
+      <y>460</y>
+      <width>130</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(159, 255, 130);
+font: 16pt &quot;Gill Sans Ultra Bold&quot;;
+color: rgb(4, 33, 158);</string>
+    </property>
+    <property name="text">
+     <string>Гибрид</string>
     </property>
    </widget>
   </widget>
