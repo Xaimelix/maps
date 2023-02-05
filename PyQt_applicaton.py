@@ -21,7 +21,7 @@ class App(QMainWindow):
         uic.loadUi('map_window.ui', self)
 
     def Image_show(self):
-        data = self.map.get_map(self.address)
+        data = self.map.geocode(self.address)
         image = QImage().fromData(data)
         self.map_img.setPixmap(QPixmap(image))
 
@@ -29,7 +29,6 @@ class App(QMainWindow):
         if event.key() == Qt.Key_PageUp or event.key() == Qt.Key_PageDown:
             if event.key() == Qt.Key_PageDown:
                 k_delta = 2
-                print(1)
                 correct = self.map.change_delta(k_delta)
             if event.key() == Qt.Key_PageUp:
                 k_delta = 0.5
