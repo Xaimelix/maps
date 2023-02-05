@@ -26,6 +26,7 @@ class App(QMainWindow):
         self.map_img.setPixmap(QPixmap(image))
 
     def keyPressEvent(self, event):
+        correct = True
         if event.key() == Qt.Key_PageUp or event.key() == Qt.Key_PageDown:
             if event.key() == Qt.Key_PageDown:
                 k_delta = 2
