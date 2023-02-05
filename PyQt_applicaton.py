@@ -9,22 +9,24 @@ from geocoder_request import *
 
 
 class App(QMainWindow):
-    def __init__(self):
+    def __init__(self, address: str):
         super().__init__()
         self.initUI()
+        self.address = address
         self.Image_show()
         self.map = QLabel(self)
+
 
     def initUI(self):
         uic.loadUi('map_window.ui', self)
 
     def Image_show(self):
-        data = Map().get_map()
+        data = Map().get_map(self.address)
         image = QImage().fromData(data)
         self.map.setPixmap(QPixmap(image))
 
 
 app = QApplication(sys.argv)
-ex = App()
+ex = App('Приморский край, Владивосток, площадь Борцов Революции')
 ex.show()
 sys.exit(app.exec())

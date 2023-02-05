@@ -14,15 +14,16 @@ class Map():
             "format": "json"}
 
         response = requests.get(geocoder_api_server, params=geocoder_params)
-        # print(response)
-        # print(response.content)
         return response
 
-    def get_map(self):
+    def get_map(self, address: str) -> bytes:
+        json_response = self.geocode(address).json()
+        toponym = json_response["response"]["GeoObjectCollection"][
+            "featureMember"][0]["GeoObject"]
+        toponym_coodrinates = toponym["Point"]["pos"].split(' ')
         api_server = "http://static-maps.yandex.ru/1.x/"
-
-        lon = "37.530887"
-        lat = "55.703118"
+        lon = str(toponym_coodrinates[0])
+        lat = str(toponym_coodrinates[1])
         delta = "0.002"
 
         params = {
