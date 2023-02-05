@@ -1,35 +1,29 @@
 import sys
 import os
-from PyQt5.QtWidgets import QApplication, QWidget
+from PyQt5.QtWidgets import QApplication, QWidget, QMainWindow
 from PyQt5.QtWidgets import QLabel
 from PyQt5.QtGui import QPixmap, QImage
-from geocoder_request import geocode, get_map
+from PyQt5 import uic
+from PIL import *
+from geocoder_request import *
 
 
-class Example(QWidget):
-    def __init__(self):
+class Example(QMainWindow):
+    def __init__(self, image_path):
         super().__init__()
         self.initUI()
-        # self.img = image_path
-        self.Image_show()
+        self.img = image_path
+        self.Image_show(image_path)
+
     def initUI(self):
-        self.setGeometry(500, 500, 500, 500)
-        self.setWindowTitle('Map')
+        uic.loadUi('map_window.ui', self)
 
-        self.map = QLabel(self)
-        self.map.setGeometry(0, 0, 400, 400)
-
-    def Image_show(self):
-
-        data = get_map()
-        image = QImage()
-        image.loadFromData(data)
-        self.map.setPixmap(QPixmap(image))
+    def Image_show(self, image_path):
+        self.pixmap = QPixmap(image_path)
+        self.map.setPixmap(self.pixmap)
+        # data = Map().get_map()
+        # image = QImage()
+        # image.loadFromData(data)
+        # print(image)
+        # self.map.setPixmap(QPixmap(image))
         # pic.show()  # You were missing this.
-
-
-if __name__ == '__main__':
-    app = QApplication(sys.argv)
-    ex = Example()
-    ex.show()
-    sys.exit(app.exec())

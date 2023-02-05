@@ -1,8 +1,10 @@
 import requests
 
+
 class Map():
     def __init__(self):
         self.map_type = 'map'
+
     def geocode(self, human_address):
         geocoder_api_server = "http://geocode-maps.yandex.ru/1.x/"
 
@@ -12,7 +14,9 @@ class Map():
             "format": "json"}
 
         response = requests.get(geocoder_api_server, params=geocoder_params)
-        return response.content
+        # print(response)
+        # print(response.content)
+        return response
 
     def get_map(self):
         api_server = "http://static-maps.yandex.ru/1.x/"

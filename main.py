@@ -1,13 +1,13 @@
 import sys
 from io import BytesIO
 import requests
-from geocoder_request import geocode
-from PIL import Image
+from geocoder_request import *
+from PIL import Image, ImageTransform
 from PyQt_applicaton import *
 
-address = 'Москва, ул. Ак. Королева, 12'
-
-response = geocode(address)
+address = 'Москва,ул.Ак.Королева,12'
+response = Map().geocode(address)
+# print(response)
 
 if not response:
     # обработка ошибочной ситуации
@@ -37,8 +37,10 @@ map_api_server = "http://static-maps.yandex.ru/1.x/"
 # ... и выполняем запрос
 response = requests.get(map_api_server, params=map_params)
 
-Image.open(BytesIO(
-    response.content)).save('res.png')
+image = Image.open(BytesIO(response.content))
+# image = image.resize((1000, 1000))
+image.save('res.png')
+
 
 app = QApplication(sys.argv)
 ex = Example('res.png')
