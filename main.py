@@ -39,12 +39,12 @@ response = requests.get(map_api_server, params=map_params)
 
 image = Image.open(BytesIO(response.content))
 # image = image.resize((1000, 1000))
-image.save('res.png')
+# image.save('res.png')
 
 
-app = QApplication(sys.argv)
-ex = Example('res.png')
-ex.show()
-sys.exit(app.exec())
+# app = QApplication(sys.argv)
+# ex = App(image)
+# ex.show()
+# sys.exit(app.exec())
 # Создадим картинку
 # и тут же ее покажем встроенным просмотрщиком операционной системы

@@ -8,22 +8,23 @@ from PIL import *
 from geocoder_request import *
 
 
-class Example(QMainWindow):
-    def __init__(self, image_path):
+class App(QMainWindow):
+    def __init__(self):
         super().__init__()
         self.initUI()
-        self.img = image_path
-        self.Image_show(image_path)
+        self.Image_show()
+        self.map = QLabel(self)
 
     def initUI(self):
         uic.loadUi('map_window.ui', self)
 
-    def Image_show(self, image_path):
-        self.pixmap = QPixmap(image_path)
-        self.map.setPixmap(self.pixmap)
-        # data = Map().get_map()
-        # image = QImage()
-        # image.loadFromData(data)
-        # print(image)
-        # self.map.setPixmap(QPixmap(image))
-        # pic.show()  # You were missing this.
+    def Image_show(self):
+        data = Map().get_map()
+        image = QImage().fromData(data)
+        self.map.setPixmap(QPixmap(image))
+
+
+app = QApplication(sys.argv)
+ex = App()
+ex.show()
+sys.exit(app.exec())
