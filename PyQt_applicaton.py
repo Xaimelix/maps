@@ -14,6 +14,12 @@ class App(QMainWindow):
         self.initUI()
         self.address = address
         self.map = Map()
+        self.prime_address()
+        self.Image_show()
+        # self.coordinates = ''
+
+    def initUI(self):
+        uic.loadUi('map_window.ui', self)
         self.btn_sputnik.setFocusPolicy(False)
         self.btn_schema.setFocusPolicy(False)
         self.btn_hybrid.setFocusPolicy(False)
@@ -21,29 +27,17 @@ class App(QMainWindow):
         self.btn_sputnik.clicked.connect(self.buttons_change_mode)
         self.btn_schema.clicked.connect(self.buttons_change_mode)
         self.btn_hybrid.clicked.connect(self.buttons_change_mode)
-        self.Image_show()
-        # self.coordinates = ''
 
-    def initUI(self):
-        uic.loadUi('map_window.ui', self)
+    def prime_address(self):
+        data = self.map.geocode(self.address)
+        self.coordinates = [float(i) for i in data]
 
-    def Image_show(self, update=False, ll=(0, 0)):
-        if not update:
-            data = self.map.geocode(self.address)
-            image = QImage().fromData(data)
-            self.map_img.setPixmap(QPixmap(image))
-            resp = self.map.get_map_info(self.address)
-            self.coordinates = resp['response']['GeoObjectCollection']['featureMember'][0]['GeoObject']['Point'][
-                'pos'].split(' ')
-        else:
-            coordinates = [float(i) for i in self.coordinates]
-            coordinates[0] += ll[0]
-            coordinates[1] += ll[1]
-            coordinates = [str(i) for i in coordinates]
-            self.coordinates = coordinates
-            data = self.map.get_map(coordinates[0], coordinates[1])
-            image = QImage().fromData(data)
-            self.map_img.setPixmap(QPixmap(image))
+    def Image_show(self, ll=(0, 0)):
+        self.coordinates = [self.coordinates[0] + ll[0], self.coordinates[1] + ll[1]]
+        data_bytes = self.map.get_map(self.coordinates[0], self.coordinates[1])
+        image = QImage().fromData(data_bytes)
+        self.map_img.setPixmap(QPixmap(image))
+
 
     def keyPressEvent(self, event):
         correct = True
@@ -56,16 +50,17 @@ class App(QMainWindow):
                 k_delta = 0.5
                 correct = self.map.change_delta(k_delta)
             if correct:
-                self.Image_show(True)
+                self.Image_show()
+        delta = float(self.map.get_delta())
         if event.key() == Qt.Key_Right:
-            self.Image_show(True, (0.01, 0))
+            self.Image_show((delta, 0))
         if event.key() == Qt.Key_Left:
-            self.Image_show(True, (-0.01, 0))
+            self.Image_show((-delta, 0))
         if event.key() == Qt.Key_Up:
-            self.Image_show(True, (0, 0.01))
+            self.Image_show((0, delta))
         if event.key() == Qt.Key_Down:
-            self.Image_show(True, (0, -0.01))
-        # self.Image_show()
+            self.Image_show((0, -delta))
+
 
     def buttons_change_mode(self):
         if self.sender() == self.btn_sputnik:
@@ -80,6 +75,6 @@ class App(QMainWindow):
 
 
 app = QApplication(sys.argv)
-ex = App('Приморский край, Владивосток, площадь Борцов Революции')
+ex = App('Приморский край, Владивосток, Кипарисовая 4')
 ex.show()
 sys.exit(app.exec())

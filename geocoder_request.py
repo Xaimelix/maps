@@ -6,7 +6,7 @@ class Map():
         self.map_type = 'map'
         self.delta = '0.002'
 
-    def geocode(self, human_address):
+    def geocode(self, human_address) -> list:
         geocoder_api_server = "http://geocode-maps.yandex.ru/1.x/"
 
         geocoder_params = {
@@ -20,13 +20,12 @@ class Map():
             "featureMember"][0]["GeoObject"]
         toponym_coodrinates = toponym["Point"]["pos"].split(' ')
 
-        data_bytes = self.get_map(toponym_coodrinates[0], toponym_coodrinates[1])
-        return data_bytes
+        return toponym_coodrinates
 
     def get_map(self, lon, lat) -> bytes:
         api_server = "http://static-maps.yandex.ru/1.x/"
-        self.lon = lon
-        self.lat = lat
+        self.lon = str(lon)
+        self.lat = str(lat)
         params = {
             "ll": ",".join([self.lon, self.lat]),
             "spn": ",".join([self.delta, self.delta]),
@@ -52,6 +51,9 @@ class Map():
             return True
         else:
             return False
+
+    def get_delta(self):
+        return self.delta
 
     def change_mode(self, mode):
         if self.map_type != mode:
